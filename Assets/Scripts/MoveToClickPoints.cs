@@ -7,8 +7,10 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class MoveToClickPoints : MonoBehaviour
 {
-    private NavMeshAgent agent;
     
+    
+    private NavMeshAgent agent;
+
     // Start is called before the first frame update
     void Start()
     {
