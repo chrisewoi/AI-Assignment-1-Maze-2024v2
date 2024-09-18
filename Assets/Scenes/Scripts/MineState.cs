@@ -9,21 +9,6 @@ public class MineState : MonoBehaviour, IState
     [SerializeField] public GameObject ore;
     [SerializeField] public float mineDistance;
     public bool mining;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        agent = GetComponent<NavMeshAgent>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (canMine())
-        {
-            
-        }
-    }
 
     public void OnEnter()
     {
@@ -32,7 +17,7 @@ public class MineState : MonoBehaviour, IState
 
     public void UpdateState()
     {
-
+        canMine();
     }
 
     public void OnHurt()

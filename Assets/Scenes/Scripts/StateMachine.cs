@@ -8,13 +8,19 @@ public class StateMachine : MonoBehaviour
 {
     private IState currentState;
 
+
+
     void Update()
     {
-        currentState.UpdateState();
+        if(currentState != null) currentState.UpdateState();
     }
     public void ChangeState(IState newState)
     {
-        currentState.OnExit();
+        if (currentState != null)
+        {
+            currentState.OnExit();
+        }
+
         currentState = newState;
         currentState.OnEnter();
     }
@@ -26,17 +32,7 @@ public interface IState
     public void OnEnter();
 
     public void UpdateState();
-
-    public void OnHurt();
+    
 
     public void OnExit();
 }
-
-
-
-/*enum EventType
-{
-    OnEnter,
-    OnUpdate,
-    OnExit,
-}*/
