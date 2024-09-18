@@ -5,6 +5,8 @@ using UnityEngine;
 public class Miner : MonoBehaviour
 {
     private StateMachine minerStateMachine;
+    public int storageCapacity;
+    public int amountHolding;
 
     // Start is called before the first frame update
     void Start()
