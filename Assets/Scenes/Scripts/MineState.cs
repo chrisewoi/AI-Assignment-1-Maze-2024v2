@@ -15,9 +15,16 @@ public class MineState : MonoBehaviour, IState
         agent.destination = ore.transform.position;
     }
 
-    public void UpdateState()
+    public void Update()
     {
         canMine();
+    }
+    public void UpdateState()
+    {
+        if (!canMine())
+        {
+            agent.destination = ore.transform.position;
+        }
     }
 
     public void OnHurt()

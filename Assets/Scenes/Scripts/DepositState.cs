@@ -8,17 +8,20 @@ public class DepositState : MonoBehaviour, IState
     [SerializeField] public GameObject storage;
     public NavMeshAgent agent;
     [SerializeField] public float depositDistance;
+    public GameObject oreStorage;
+    private float speed;
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        speed = agent.speed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnEnter()
@@ -28,6 +31,14 @@ public class DepositState : MonoBehaviour, IState
 
     public void UpdateState()
     {
+        if (Depositing())
+        {
+            agent.destination = transform.position;
+        }
+        else
+        {
+            agent.destination = storage.transform.position;
+        }
     }
 
     public void OnHurt()
@@ -36,11 +47,11 @@ public class DepositState : MonoBehaviour, IState
 
     public void OnExit()
     {
+        //agent.speed = speed;
     }
 
     public bool Depositing()
     {
-        Debug.Log(true);
         return Vector3.Distance(transform.position, storage.transform.position) < depositDistance;
     }
 }
