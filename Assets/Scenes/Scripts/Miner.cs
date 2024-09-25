@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityHFSM;
-
+[System.Serializable]
 public class Miner : MonoBehaviour
 {
     public StateMachine minerStateMachine;
@@ -20,6 +20,11 @@ public class Miner : MonoBehaviour
 
     public ParticleSystem PS_Mining;
 
+    [SerializeField] public GameObject[] storageID;
+    public static int newZoneID;
+
+    
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -29,6 +34,11 @@ public class Miner : MonoBehaviour
         minerStateMachine.ChangeState(mineState);
         PS_Mining = GetComponentInChildren<ParticleSystem>();
         PS_Mining.enableEmission = false;
+        newZoneID = 0;
+        
+        // Sets default storage to the first one
+        storage = storageID[0];
+        
     }
 
     // Update is called once per frame

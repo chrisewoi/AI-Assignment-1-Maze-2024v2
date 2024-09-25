@@ -11,22 +11,30 @@ public class DepositState : MonoBehaviour, IState
     public GameObject oreStorage;
     private float speed;
 
+    public GameObject[] storageID;
+
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         speed = agent.speed;
+        storageID = GetComponent<Miner>().storageID;
+
+        oreStorage = storageID[Miner.newZoneID];
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (Door1Lock.door1Complete && Miner.newZoneID == 0)
+        {
+            Miner.newZoneID = 1;
+        }
     }
 
     public void OnEnter()
     {
-        agent.destination = storage.transform.position;
+        agent.destination = storageID[Miner.newZoneID].transform.position;
     }
 
     public void UpdateState()
@@ -37,7 +45,7 @@ public class DepositState : MonoBehaviour, IState
         }
         else
         {
-            agent.destination = storage.transform.position;
+            agent.destination = storageID[Miner.newZoneID].transform.position;
         }
     }
 
@@ -47,11 +55,11 @@ public class DepositState : MonoBehaviour, IState
 
     public void OnExit()
     {
-        //agent.speed = speed;
+
     }
 
     public bool Depositing()
     {
-        return Vector3.Distance(transform.position, storage.transform.position) < depositDistance;
+        return Vector3.Distance(transform.position, storageID[Miner.newZoneID].transform.position) < depositDistance;
     }
 }

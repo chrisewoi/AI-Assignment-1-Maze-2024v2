@@ -17,8 +17,10 @@ public class CameraPosition : MonoBehaviour
 
     public Quaternion myRotation;
     public Quaternion destinationRotation;
+
+    public float transitionDelay;
     
-    // Start is called before the first frame update
+    // positions
     void Start()
     {
         position = 1;
@@ -32,10 +34,10 @@ public class CameraPosition : MonoBehaviour
     void Update()
     {
         positionView = position;
-        if (timer > 5f)
+        if (Door1Lock.door1Complete && position < 2)
         {
-            position = 2;
-            triggerTransition = true;
+            Invoke("UpdatePosition2", transitionDelay);
+            
         }
 
         if (position > 1)
@@ -52,5 +54,25 @@ public class CameraPosition : MonoBehaviour
         if(triggerTransition) transitionDelta += Time.deltaTime;
         if (transitionDelta > transitionTime) triggerTransition = false;
         timer += Time.deltaTime;
+    }
+
+    void UpdatePosition(int newPosition)
+    {
+        position = newPosition;
+        triggerTransition = true;
+    }
+
+    // Because Invoke can't pass parameters
+    void UpdatePosition2()
+    {
+        UpdatePosition(2);
+    }
+    void UpdatePosition3()
+    {
+        UpdatePosition(3);
+    }
+    void UpdatePosition4()
+    {
+        UpdatePosition(4);
     }
 }
