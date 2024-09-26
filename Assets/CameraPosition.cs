@@ -23,7 +23,7 @@ public class CameraPosition : MonoBehaviour
     // positions
     void Start()
     {
-        position = 1;
+        position = 0;
         myPosition = transform.position;
         myRotation = transform.rotation;
         transitionDelta = 0;
@@ -34,19 +34,20 @@ public class CameraPosition : MonoBehaviour
     void Update()
     {
         positionView = position;
-        if (Door1Lock.door1Complete && position < 2)
+        if (Door1Lock.doorComplete[Mathf.Clamp(Miner.newZoneID-1,0,Door1Lock.doorComplete.Length)]) //&& position < 2)
         {
             Invoke("UpdatePosition2", transitionDelay);
-            
+            //transitionDelay += transitionDelay;
+
         }
 
-        if (position > 1)
-        {
+        //if (position > 1)
+        //{
             transform.position = positions[position].gameObject.transform.position;
             transform.rotation = positions[position].gameObject.transform.rotation;
             destination = positions[position].gameObject.transform.position;
             destinationRotation = positions[position].gameObject.transform.rotation;
-        }
+        //}
 
         transform.position = Vector3.Lerp(myPosition, destination, transitionDelta / transitionTime);
         transform.rotation = Quaternion.Lerp(myRotation, destinationRotation, transitionDelta / transitionTime);
@@ -58,6 +59,12 @@ public class CameraPosition : MonoBehaviour
 
     void UpdatePosition(int newPosition)
     {
+        if (position != newPosition)
+        {
+            transitionDelta = 0;
+            myPosition = transform.position;
+            myRotation = transform.rotation;
+        }
         position = newPosition;
         triggerTransition = true;
     }
@@ -65,14 +72,15 @@ public class CameraPosition : MonoBehaviour
     // Because Invoke can't pass parameters
     void UpdatePosition2()
     {
-        UpdatePosition(2);
+        UpdatePosition(Miner.newZoneID);
+        
     }
     void UpdatePosition3()
     {
-        UpdatePosition(3);
+        UpdatePosition(2);
     }
     void UpdatePosition4()
     {
-        UpdatePosition(4);
+        UpdatePosition(3);
     }
 }

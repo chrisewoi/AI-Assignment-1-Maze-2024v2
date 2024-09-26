@@ -5389,6 +5389,7 @@ MonoBehaviour:
   storageID:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &4155534672772516595
 MonoBehaviour:
   m_ObjectHideFlags: 0

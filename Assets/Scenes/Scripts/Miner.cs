@@ -44,6 +44,7 @@ public class Miner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(newZoneID);
         if (amountHolding >= storageCapacity)
         {
             minerStateMachine.ChangeState(depositState);

@@ -8,7 +8,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class RandomWalk : MonoBehaviour
 {
-    public float _Range = 25.0f;
+    public float _Range = 1.0f;
     private NavMeshAgent _Agent;
 
     // Start is called before the first frame update

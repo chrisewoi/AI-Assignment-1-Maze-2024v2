@@ -26,9 +26,15 @@ public class DepositState : MonoBehaviour, IState
     // Update is called once per frame
     void Update()
     {
-        if (Door1Lock.door1Complete && Miner.newZoneID == 0)
+        if (Door1Lock.doorComplete[Miner.newZoneID])
         {
-            Miner.newZoneID = 1;
+            int count = 0;
+            foreach (bool door in Door1Lock.doorComplete)
+            {
+                if (door) count++;
+            }
+            Miner.newZoneID = count;
+            Debug.Log("Zone: " + Miner.newZoneID);
         }
     }
 

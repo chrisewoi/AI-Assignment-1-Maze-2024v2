@@ -13,8 +13,10 @@ public class Door1Lock : MonoBehaviour
     public GameObject progressBar;
     public GameObject door;
     public int doorID;
-    
-    public string progressString => (Mathf.Round(oreNeeded*10)/10).ToString();
+
+    public GameObject doorEndPosition;
+
+    public string progressString => (Mathf.Round(oreNeeded * 10) / 10).ToString();
     public TMP_Text ProgressText;
     public ParticleSystem ps_doorZap;
     public ParticleSystem ps_doorZap2;
@@ -22,17 +24,22 @@ public class Door1Lock : MonoBehaviour
 
     public bool open_ps_destroyed;
 
-    public static bool door1Complete;
-    
+    public static bool[] doorComplete;
+
+
+    void Awake()
+    {
+        doorComplete = new bool[10];
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         doorUnlocked = false;
         ps_doorZap.enableEmission = false;
         ps_doorZap2.enableEmission = false;
-        
+
         ps_doorOpened.enableEmission = false;
-        
 
         oreNeededMax = oreNeeded;
     }
@@ -49,8 +56,8 @@ public class Door1Lock : MonoBehaviour
         {
             progressBar.SetActive(false);
         }
-        
-        
+
+
         if (MineStorage.storedOre >= oreNeeded && !doorUnlocked)
         {
             UnlockDoor();
@@ -59,12 +66,12 @@ public class Door1Lock : MonoBehaviour
         if (doorUnlocked && oreNeeded > 0)
         {
             // Transfer faster over time
-            float speed = 2f - (oreNeeded/oreNeededMax);
-            //Debug.Log("Speed: " + speed);
-            
+            float speed = 2f - (oreNeeded / oreNeededMax);
+
             MineStorage.storedOre -= Time.deltaTime * speed;
             oreNeeded -= Time.deltaTime * speed;
-            progressBar.transform.localScale = progressBar.transform.localScale  - Vector3.one * ((1 - (oreNeeded / oreNeededMax)) * Time.deltaTime/90f);
+            progressBar.transform.localScale = progressBar.transform.localScale -
+                                               Vector3.one * ((1 - (oreNeeded / oreNeededMax)) * Time.deltaTime / 90f);
             ps_doorZap.enableEmission = true;
             ps_doorZap2.enableEmission = true;
         }
@@ -78,23 +85,19 @@ public class Door1Lock : MonoBehaviour
         if (oreNeeded <= 0)
         {
             ps_doorZap.enableEmission = false;
-            //ps_doorOpened.enableEmission = true;
-            //ps_doorOpened.Play();
+
             ps_doorOpened.enableEmission = true;
-            ps_doorOpened.Play();
             if (!open_ps_destroyed)
             {
-                Invoke("DestroyPS_DoorOpened", 3);
+                ps_doorOpened.Play();
                 open_ps_destroyed = true;
             }
 
-            progressBar.gameObject.SetActive(false);
-            door.gameObject.transform.position = new Vector3(door.gameObject.transform.position.x,
-                                                            door.gameObject.transform.position.y-Time.deltaTime,
-                                                            door.gameObject.transform.position.z);
-            door1Complete = true;
+            OpenDoor();
+            // Set door to complete so zone is moved up THIS IS WHERE ISSUE IS
+            doorComplete[doorID] = true;
         }
-        
+
         ProgressText.text = progressString;
     }
 
@@ -103,9 +106,26 @@ public class Door1Lock : MonoBehaviour
         doorUnlocked = true;
     }
 
-    void DestroyPS_DoorOpened()
+    void OpenDoor()
     {
-        ps_doorOpened.gameObject.transform.position = new Vector3(1000, 1000, 1000);
-        Destroy(ps_doorOpened.gameObject);
+        if (doorID == 0)
+        {
+            progressBar.gameObject.SetActive(false);
+            door.gameObject.transform.position = new Vector3(door.gameObject.transform.position.x,
+                door.gameObject.transform.position.y - Time.deltaTime,
+                door.gameObject.transform.position.z);
+        }
+
+        if (doorID == 1)
+        {
+            door.transform.position = Vector3.MoveTowards(door.transform.position,doorEndPosition.transform.position, Time.deltaTime);
+            door.transform.eulerAngles = Vector3.RotateTowards(door.transform.eulerAngles, doorEndPosition.transform.eulerAngles,
+                Time.deltaTime, Time.deltaTime);
+        }
+
+        if (doorID == 2)
+        {
+            door.transform.position = Vector3.MoveTowards(door.transform.position,doorEndPosition.transform.position, Time.deltaTime);
+        }
     }
 }
