@@ -65,8 +65,8 @@ public class Door1Lock : MonoBehaviour
 
         if (doorUnlocked && oreNeeded > 0)
         {
-            // Transfer faster over time
-            float speed = 2f - (oreNeeded / oreNeededMax);
+            // Transfer faster over time, with each door also opening faster than the last
+            float speed = (2f - (oreNeeded / oreNeededMax)) * (doorID+1);
 
             MineStorage.storedOre -= Time.deltaTime * speed;
             oreNeeded -= Time.deltaTime * speed;

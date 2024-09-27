@@ -7,7 +7,7 @@ public class CameraPosition : MonoBehaviour
     static int position;
     [SerializeField] public int positionView; //=> position;
     public GameObject[] positions;
-    public float transitionTime;
+    public float[] transitionTime;
     public float transitionDelta;
     public float timer;
     public bool triggerTransition;
@@ -34,39 +34,38 @@ public class CameraPosition : MonoBehaviour
     void Update()
     {
         positionView = position;
-        if (Door1Lock.doorComplete[Mathf.Clamp(Miner.newZoneID-1,0,Door1Lock.doorComplete.Length)]) //&& position < 2)
+        if (Door1Lock.doorComplete[Mathf.Clamp(Miner.newZoneID-1,0,Door1Lock.doorComplete.Length)] && !triggerTransition) //&& position < 2)
         {
             Invoke("UpdatePosition2", transitionDelay);
-            //transitionDelay += transitionDelay;
+
 
         }
 
-        //if (position > 1)
-        //{
+
             transform.position = positions[position].gameObject.transform.position;
             transform.rotation = positions[position].gameObject.transform.rotation;
             destination = positions[position].gameObject.transform.position;
             destinationRotation = positions[position].gameObject.transform.rotation;
-        //}
 
-        transform.position = Vector3.Lerp(myPosition, destination, transitionDelta / transitionTime);
-        transform.rotation = Quaternion.Lerp(myRotation, destinationRotation, transitionDelta / transitionTime);
+
+        transform.position = Vector3.Lerp(myPosition, destination, transitionDelta / transitionTime[position]);
+        transform.rotation = Quaternion.Lerp(myRotation, destinationRotation, transitionDelta / transitionTime[position]);
         
         if(triggerTransition) transitionDelta += Time.deltaTime;
-        if (transitionDelta > transitionTime) triggerTransition = false;
+        if (transitionDelta > transitionTime[position]) triggerTransition = false;
         timer += Time.deltaTime;
     }
 
     void UpdatePosition(int newPosition)
     {
-        if (position != newPosition)
+        if (position != newPosition && !triggerTransition)
         {
             transitionDelta = 0;
             myPosition = transform.position;
             myRotation = transform.rotation;
+            position = newPosition;
+            triggerTransition = true;
         }
-        position = newPosition;
-        triggerTransition = true;
     }
 
     // Because Invoke can't pass parameters

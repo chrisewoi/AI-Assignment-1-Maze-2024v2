@@ -5221,12 +5221,10 @@ GameObject:
   - component: {fileID: 81145896641476742}
   - component: {fileID: 565737598144854314}
   - component: {fileID: 2192273390644400587}
-  - component: {fileID: 6002540472463390059}
   - component: {fileID: 4155534672772516595}
-  - component: {fileID: 3453880179355333506}
-  - component: {fileID: 2419341668166162430}
   - component: {fileID: 847207799124914520}
   - component: {fileID: 1531196246042850337}
+  - component: {fileID: 6782891176891116712}
   m_Layer: 6
   m_Name: Warrior
   m_TagString: Untagged
@@ -5364,32 +5362,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Range: 25
---- !u!114 &6002540472463390059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1564922038518348217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c5e938629a13844094929736c77b29e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minerStateMachine: {fileID: 4155534672772516595}
-  storageCapacity: 6
-  amountHolding: 0
-  mineState: {fileID: 3453880179355333506}
-  depositState: {fileID: 2419341668166162430}
-  storage: {fileID: 0}
-  progressBar: {fileID: 5950447433773082998}
-  progressBG: {fileID: 186501438917700137}
-  ProgressText: {fileID: 8257570317191531323}
-  PS_Mining: {fileID: 0}
-  storageID:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &4155534672772516595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5402,39 +5374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 264b530d9eb6e3b479c78fc237804975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3453880179355333506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1564922038518348217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c949aab27a56344a8cf230b7593046d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 565737598144854314}
-  ore: {fileID: 0}
-  mineDistance: 2
-  mining: 0
---- !u!114 &2419341668166162430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1564922038518348217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30e2e82a0784129409b5a5e39ed7b8fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  storage: {fileID: 0}
-  agent: {fileID: 565737598144854314}
-  depositDistance: 1.2
-  oreStorage: {fileID: 0}
-  storageID: []
 --- !u!54 &847207799124914520
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5470,6 +5409,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1564922038518348217}
   m_CullTransparentMesh: 1
+--- !u!114 &6782891176891116712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564922038518348217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3661c2fab45d4ff488961e6845b55f47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4006793604644703099
 GameObject:
   m_ObjectHideFlags: 0
