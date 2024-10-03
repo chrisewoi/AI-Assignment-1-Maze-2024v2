@@ -10,10 +10,11 @@ public class RandomWalk : MonoBehaviour
 {
     public float _Range = 1.0f;
     private NavMeshAgent _Agent;
-    public bool freedom;
+    public static bool freedom;
     public float timer;
     public float timeToSwitchBehaviour;
     public bool attacking;
+    public bool attacked;
 
     public GameObject target;
 
@@ -26,6 +27,7 @@ public class RandomWalk : MonoBehaviour
         freedom = false;
         timer = 0;
         attacking = false;
+        attacked = false;
     }
 
     // Update is called once per frame
@@ -35,25 +37,36 @@ public class RandomWalk : MonoBehaviour
         {
             return;
         }
-
-        Vector3 randomPosition = _Range * Random.insideUnitCircle;
-        randomPosition = new Vector3(randomPosition.x, 0, randomPosition.y);
-        _Agent.destination = transform.position + randomPosition;
+        
+        //RandomDestination();
 
         if (timer > timeToSwitchBehaviour)
         {
             timer = 0;
             attacking = !attacking;
+            attacked = false;
         }
-        if (freedom)
+        if (freedom && !attacked)
         {
             if (attacking)
             {
                 _Agent.destination = target.transform.position;
             }
+            else
+            {
+                RandomDestination();
+            }
 
+            attacked = true;
         }
         
         timer += Time.deltaTime;
+    }
+
+    void RandomDestination()
+    {
+        Vector3 randomPosition = _Range * Random.insideUnitCircle;
+        randomPosition = new Vector3(randomPosition.x, 0, randomPosition.y);
+        _Agent.destination = transform.position + randomPosition;
     }
 }

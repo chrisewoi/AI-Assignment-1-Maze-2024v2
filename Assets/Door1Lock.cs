@@ -42,6 +42,11 @@ public class Door1Lock : MonoBehaviour
         ps_doorOpened.enableEmission = false;
 
         oreNeededMax = oreNeeded;
+
+        if (progressBar == null)
+        {
+            progressBar = new GameObject();
+        }
     }
 
     // Update is called once per frame
@@ -126,6 +131,7 @@ public class Door1Lock : MonoBehaviour
         if (doorID == 2)
         {
             door.transform.position = Vector3.MoveTowards(door.transform.position,doorEndPosition.transform.position, Time.deltaTime);
+            RandomWalk.freedom = true;
         }
     }
 }
