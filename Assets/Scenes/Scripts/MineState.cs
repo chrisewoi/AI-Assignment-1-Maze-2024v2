@@ -24,8 +24,8 @@ public class MineState : MonoBehaviour, IState
     public void OnEnter()
     {
         GameObject selectedOreToMine;
-        
-        agent.destination = ore.transform.position;
+        if(ore != null)
+            agent.destination = ore.transform.position;
     }
 
     public void Update()

@@ -33,7 +33,8 @@ public class Miner : MonoBehaviour
         minerStateMachine = GetComponent<StateMachine>();
         minerStateMachine.ChangeState(mineState);
         PS_Mining = GetComponentInChildren<ParticleSystem>();
-        PS_Mining.enableEmission = false;
+        if(PS_Mining != null)
+            PS_Mining.enableEmission = false;
         newZoneID = 0;
         
         // Sets default storage to the first one

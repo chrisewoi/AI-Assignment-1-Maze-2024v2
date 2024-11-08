@@ -47,12 +47,12 @@ public class CameraPosition : MonoBehaviour
             destination = positions[position].gameObject.transform.position;
             destinationRotation = positions[position].gameObject.transform.rotation;
 
-
-        transform.position = Vector3.Lerp(myPosition, destination, transitionDelta / transitionTime[position]);
-        transform.rotation = Quaternion.Lerp(myRotation, destinationRotation, transitionDelta / transitionTime[position]);
+        float transitionTimeFinal = transitionTime[position] + 1f;
+        transform.position = Vector3.Lerp(myPosition, destination, transitionDelta / transitionTimeFinal);
+        transform.rotation = Quaternion.Lerp(myRotation, destinationRotation, transitionDelta / transitionTimeFinal);
         
         if(triggerTransition) transitionDelta += Time.deltaTime;
-        if (transitionDelta > transitionTime[position]) triggerTransition = false;
+        if (transitionDelta > transitionTimeFinal) triggerTransition = false;
         timer += Time.deltaTime;
     }
 

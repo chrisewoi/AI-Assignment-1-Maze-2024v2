@@ -29329,7 +29329,11 @@ MonoBehaviour:
   - {fileID: 1407887138}
   - {fileID: 1153482984}
   - {fileID: 222610521}
-  transitionTime: []
+  transitionTime:
+  - 2
+  - 2
+  - 2
+  - 2
   transitionDelta: 0
   timer: 0
   triggerTransition: 0
